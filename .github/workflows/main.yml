@@ -1,0 +1,15 @@
+name: Git Actions
+on: 
+  push:
+  workflow_dispatch: 
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: env
+    steps:
+      - name: Print Secret
+        run: echo "A senha é ${( secrets.SECRET )}"
+
+      - name: Print Variable
+        run: echo "A senha é ${( vars.VARIABLE )}"
