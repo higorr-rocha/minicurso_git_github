@@ -9,7 +9,7 @@ jobs:
     environment: env
     steps:
       - name: Print Secret
-        run: echo "A senha é ${( secrets.SECRET )}"
+        run: echo "A senha é ${{ secrets.SECRET }}"
 
       - name: Print Variable
-        run: echo "A senha é ${( vars.VARIABLE )}"
+        run: echo "A senha é ${{ vars.VARIABLE }}"
