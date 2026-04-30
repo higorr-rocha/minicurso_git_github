@@ -1,15 +1,52 @@
-name: Git Actions
-on: 
+name: Aprendendo git actions
+on:
   push:
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    environment: env
-    steps:
-      - name: Print Secret
+     runs-on: ubuntu-latest
+     environment: env
+     steps:
+      - name: Print secret
         run: echo "A senha é ${{ secrets.SECRET }}"
-
-      - name: Print Variable
+        
+      - name: Print variables
         run: echo "A senha é ${{ vars.VARIABLE }}"
+        
+  clone-repositorio:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - name: listar diretorio
+          run: ls -la
+
+  clone-manual:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configurar Git
+        run: git --version  # só para mostrar que o git já existe
+  
+      - name: Clonar repositório manualmente
+        run: git clone https://github.com/${{ github.repository }} .
+      - name: listar diretorio
+        run: ls -la
+
+  node-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v4
+      - name: Usar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Checar versão do Node
+        run: node --version
+        
+      - name: Verificar arquivos no diretório
+        run: ls -la
+
+      - name: Rodar um arquivo JavaScript
+        run: node sum.test.js
